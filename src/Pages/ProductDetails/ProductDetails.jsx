@@ -5,9 +5,15 @@ import axios from 'axios'
 import Slider from "react-slick";
 import { CartContext } from '../../Context/CartContext/CartContext';
 import toast from 'react-hot-toast';
+import { WishContext } from '../../Context/WishContext/WishContext';
+import { Helmet } from 'react-helmet';
 
 
 export default function ProductDetails() {
+  const [isWished, setIsWished] = useState(false);
+
+let{addProductToCWish}=useContext(WishContext)
+
   let { id } = useParams();
 const {addProductToCart}= useContext(CartContext)
 
@@ -50,10 +56,34 @@ toast.success(x.data.message,
     getDetails()
   }, []);
 
+    async function handelWish(){
+    let x= addProductToCWish(id)
+    setIsWished(true);
 
+    toast.success(  ( ' like it ❤️'),
+    {
+      duration: 3000,
+      position: 'top-right',
+
+      style: {
+        backgroundColor: 'green', padding: '16px', color: 'white', fontSize: "20px", border: '1px solid white',
+        padding: '16px',
+
+      }
+
+
+    }) 
+
+  }
 
   return (
     <div className='container'>
+         <Helmet>
+                <title>
+                {details.title} 
+                 </title>
+            </Helmet>
+            
 
       <div className='row items-center mt-8 '>
         <div className='w-1/4 mx-10  ' >
@@ -91,8 +121,10 @@ toast.success(x.data.message,
 
               <button onClick={()=>{addProduct(id)}} className='bg-lime-600 w-full p-2 rounded mt-5'> + Add </button>
 
-              <i className='fa-solid fa-heart text-black ms-20 text-3xl mt-4' ></i>
-
+              <i 
+        className={`fa-solid fa-heart text-2xl  ${isWished ? 'text-red-600' : 'text-black'}`} 
+        onClick={() => handelWish(id)}
+      ></i>
             </div>
           </div>
         </div>

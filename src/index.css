@@ -111,14 +111,27 @@ button:focus-visible {
   
 } 
 
+.model-bg 
+{
+  background:rgba(255, 255, 255, 255);
+
+
+}
 .model{
-  display: none;
-background:rgba(255, 255, 255, 0.9);
-width: 100%;
-position: absolute;
-  top: 3px;
+  background:rgba(255, 255, 255, 0.9);
+
+  /* display: none; */
   
-  margin: auto;
+position: fixed;
+  top: 0px;
+
+
   
+}
+.parent{
+  
+ position: relative ;
+  width: 100%;
+
 }
 

@@ -13,33 +13,42 @@ import ProtectedRoute from './Pages/ProtectedRoute/ProtectedRoute'
 import ProductDetails from './Pages/ProductDetails/ProductDetails'
 import CartContextProvider from './Context/CartContext/CartContext'
 import Brands from './Components/Brands/Brands'
-import Product from './Components/Product/Product'
+import Product from  './Components/Product/Product'
 import Catgories from './Components/Catgories/Catgories'
-import WishList from './Components/WishList/WishList'
 import  { Toaster } from 'react-hot-toast';
 import CheckOut from './Pages/CheckOut/CheckOut'
 import LostPaswword from './Pages/LostPaswword/LostPaswword'
 import AllOrders from './Components/AllOrders/AllOrders'
+import Wish from './Components/Wish/Wish'
+import WishContextProvider from './Context/WishContext/WishContext'
+import VerifyCode from './Pages/VerifyCode/VerifyCode'
+// import WishList from './Components/WishList/WishList'
+// import WishContextProvider from './Context/WishContext/WishContext'
 // import ForgetPassword from './Pages/ForgetPassword/ForgetPassword'
 
+
 function App() {
+  
+  
   let routers = createBrowserRouter([{
-    path: '', element: <MainLayOut />,
+    
+    path: '/', element: <MainLayOut />,
     children: [
-      { index: " ", element:(  <ProtectedRoute> <HomePage /> </ProtectedRoute>) },
+      { index: true, element:(  <ProtectedRoute> <HomePage /> </ProtectedRoute>) },
       
       { path: 'allorders', element: (<ProtectedRoute> <AllOrders/> </ProtectedRoute> ),},
       { path: 'home', element:(  <ProtectedRoute> <HomePage /> </ProtectedRoute>) },
       { path: 'cart', element: (<ProtectedRoute> <Cart /> </ProtectedRoute>) },
-      { path: 'wishlist', element: (<ProtectedRoute> <WishList /> </ProtectedRoute>) },
       { path: 'brands', element: (<ProtectedRoute> <Brands /> </ProtectedRoute>) },
       { path: 'product', element: (<ProtectedRoute> <Product /> </ProtectedRoute>) },
       { path: 'catrgories', element: (<ProtectedRoute> <Catgories /> </ProtectedRoute>) },
+      { path: 'Wishlist', element: (<ProtectedRoute> <Wish   /> </ProtectedRoute>) },
       { path: 'ProductDetails/:id', element: (<ProtectedRoute> <ProductDetails/> </ProtectedRoute> ),},
       { path: 'checkout', element: (<ProtectedRoute> <CheckOut/> </ProtectedRoute> ),},
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: 'LostPaswword', element: <LostPaswword /> },
+      { path: 'VerifyCode', element: <VerifyCode /> },
 
 
 
@@ -53,10 +62,13 @@ function App() {
 
     <UserContextProvider>
     <CartContextProvider>
+    <WishContextProvider>
+
     <Toaster />
 
 <RouterProvider router={routers}> </RouterProvider>
 
+    </WishContextProvider>
 </CartContextProvider>
 
     </UserContextProvider>

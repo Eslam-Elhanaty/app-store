@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Catgories.module.css'
 import axios from 'axios'
+import Loader from '../Loader/Loader'
+import { Helmet } from 'react-helmet'
 
 export default function Catgories() {
+
+  const [isLoding, setIsLoding] = useState(true)
 
   
   const [dataCategory, setDataCategory] = useState([])
@@ -13,7 +17,9 @@ export default function Catgories() {
     axios.get('https://ecommerce.routemisr.com/api/v1/categories')
     .then((data) => {
       setDataCategory(data.data.data);})
+      
       .catch((error)=>console.log(error))
+      setIsLoding(false)
   }
  
   useEffect(() => {
@@ -23,10 +29,17 @@ export default function Catgories() {
 
   return (
     <div className='container'>
+       <Helmet>
+                <title>
+                catrgories
+                 </title>
+            </Helmet>
+            
       <div className="row mt-8">
        
-       {/* <h1>category</h1> */}
-       {dataCategory.map((x)=>(<>
+       {isLoding ? <Loader/> :
+
+       dataCategory.map((x)=>(<>
 
        <div className='w-1/3  p-4 product text-center'>
 

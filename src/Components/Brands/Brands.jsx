@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import styles from './Brands.module.css'
 import axios from 'axios'
 import Model from '../Model/Model'
+import Loader from '../Loader/Loader'
+import { Helmet } from 'react-helmet'
 
 export default function Brands() {
+  const [isLoding, setIsLoding] = useState(true)
 
-  const [showModel , setShowModel] = useState(false)
+  const [showModel, setShowModel] = useState(false)
 
   function handelModel() {
 
@@ -13,7 +16,8 @@ export default function Brands() {
   }
 
 
-   
+
+
   const [modelData, setModelData] = useState([])
 
   function getModelData(id) {
@@ -45,6 +49,7 @@ export default function Brands() {
 
     axios.get('https://ecommerce.routemisr.com/api/v1/brands').then((response) => {
       setDataBrands(response.data.data);
+      setIsLoding(false)
 
     })
   }
@@ -55,30 +60,45 @@ export default function Brands() {
 
   return (<>
 
-    <div className='container mt-10'>
+    <div >
 
-      <div className='row'>
+      <div className='container mt-10 '>
+      <Helmet>
+                <title>
+                Brands
+                 </title>
+            </Helmet>
+            
 
-        { dataBrands.length >0  }
-
-        {dataBrands.map((bb) => (
-          
-          <div  className='w-1/4  p-4 product text-center'>
+        <div className='row'>
 
 
-          <img src={bb.image} alt="" />
-          <h1>{bb.name}</h1>
+          {isLoding ?
+
+            <Loader />
+
+            :
+
+            dataBrands.map((bb) => (
+
+              <div  key={bb._id}  onClick={() => (handelModel(), getModelData(bb._id))} className='w-1/4  p-4 product text-center'>
+
+
+                <img src={bb.image} alt="" />
+                <h1>{bb.name}</h1>
+              </div>
+            ))}
+
         </div>
-        ))}
 
       </div>
 
+
+
+      {showModel && <Model isVisible={true} setShowModel={setShowModel} modelData={modelData} />}
+
+
     </div>
-
-
-
-    <Model  setShowModel={setShowModel} dataBrands={dataBrands} modelData={modelData}/>
- 
   </>
   )
 }

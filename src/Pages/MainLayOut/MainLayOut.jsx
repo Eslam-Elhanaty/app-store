@@ -8,7 +8,6 @@ export default function MainLayOut() {
   return (
     <div>
 <Navbar/>
-
 <Outlet/>
 
 

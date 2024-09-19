@@ -6,6 +6,7 @@ import axios from 'axios'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import {  userContext } from '../../Context/UsersContext/UsersContext'
 import { FaSpinner } from 'react-icons/fa'
+import { Helmet } from 'react-helmet'
 
 
 
@@ -58,7 +59,6 @@ export default function Login() {
   })
   const formik = useFormik({
     initialValues: {
-
       email: "",
       password: "",
 
@@ -68,7 +68,14 @@ export default function Login() {
   })
 
   return (
+
+    <>
+    
     <div className=' container  '>
+    <Helmet>
+                <title>login</title>
+            </Helmet>
+            
       <div className=' my-3  m-auto mt-40'>
 
         <h1 className='text-2xl font-bold ms-48  mb-5 text-black '> Login now </h1>
@@ -118,9 +125,14 @@ export default function Login() {
             </span>
             </Link>
         </form>
-
+        <p className=' mt-2 text-center text-gray-500 text-xl' >
+        Create a New Account
+        ?
+          <Link to={'/register'} className='font-semibold leading-3 text-teal-900 text-xl hover:text-green-500'> register now </Link>
+        </p>
       </div>
     </div>
+    </>
   )
 }
 

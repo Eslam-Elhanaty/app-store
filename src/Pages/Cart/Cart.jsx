@@ -3,9 +3,12 @@ import styles from './Cart.module.css'
 import { useContext } from 'react';
 import { CartContext } from '../../Context/CartContext/CartContext';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 export default function Cart() {
+  const {usertoken}= useContext(userContext)
+
 
 let {getLoggedUserCart , updateCartCount ,deleteCart ,setNumOfCartItems} = useContext(CartContext);
 
@@ -13,7 +16,7 @@ const [cartDetails, setcartDetails] = useState(null)
 
  async function grtCartItem(){
    let response = await getLoggedUserCart()
-console.log(response.data.data);
+// console.log(response.data.data);
 setcartDetails(response.data.data);
 
 }
@@ -40,7 +43,12 @@ async function deleteItem(productId,){
 }
 
 
+
 useEffect(() => {
+  if(usertoken){
+    grtCartItem()
+
+  }
   grtCartItem()
 }, []);
 
@@ -51,6 +59,10 @@ return (<>
 
 
 <div className="relative overflow-x-auto   sm:rounded-lg text-center ">
+<Helmet>
+                <title>cart</title>
+            </Helmet>
+            
 
   <h1 className='text-3xl font-extrabold p-5 text-green-600 mt-10 ms-10 p'>Cart Shop </h1>
 <div className='flex justify-around m-6 items-center'>

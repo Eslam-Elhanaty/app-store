@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 import { FaSpinner } from 'react-icons/fa'
 import { CartContext } from '../../Context/CartContext/CartContext'
+import { Helmet } from 'react-helmet'
 export default function CheckOut() {
 
 
@@ -64,6 +65,10 @@ export default function CheckOut() {
 
     return (
         <div className=' container  '>
+             <Helmet>
+                <title>CheckOut </title>
+            </Helmet>
+            
             <div className='w-3/4 my-3  m-auto'>
 
                 <h1 className='text-2xl font-bold ms-48  mb-5 text-green-700 '> check now </h1>
